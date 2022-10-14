@@ -2,6 +2,7 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy]
   def index
     @events = Event.all
+    @events = Event.page(params[:page]).per(5)
   end
 
   def new
