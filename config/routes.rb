@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root to: 'welcome#index'
   resources :events do
     resources :attendees, controller: 'event_attendees'
+    resource :location, controller: 'event_locations'
   end
   # match ':controller(/:action(/:id(.:format)))', via: :all
   # Defines the root path route ("/")
