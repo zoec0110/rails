@@ -42,11 +42,11 @@ class EventsController < ApplicationController
 
   private
 
-  def event_params
-    params.require(:event).permit(:name, :description)
-  end
+    def event_params
+      params.require(:event).permit(:name, :description)
+    end
 
-  def set_event
-    @event = Event.find(params[:id])
-  end
+    def set_event
+      @event = Event.find(params[:id])
+    end
 end
