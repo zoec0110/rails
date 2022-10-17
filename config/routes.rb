@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'welcome' => 'welcome#index'
   root to: 'welcome#index'
   resources :events
+  # match ':controller(/:action(/:id(.:format)))', via: :all
   # Defines the root path route ("/")
   # root "articles#index"
 end
