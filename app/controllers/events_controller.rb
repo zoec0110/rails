@@ -2,13 +2,18 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy]
   def index
     @events = Event.all
-    @events = Event.page(params[:page]).per(5)
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml { render xml: @events.to_xml }
-      format.json { render json: @events.to_json }
-      format.atom { @feed_title = 'My event list' } # index.atom.builder
-    end
+    # @events = Event.page(params[:page]).per(5)
+    # respond_to do |format|
+    #   format.html # index.html.erb
+    #   format.xml { render xml: @events.to_xml }
+    #   format.json { render json: @events.to_json }
+    #   format.atom { @feed_title = 'My event list' } # index.atom.builder
+    @events = if params[:keyword]
+                Event.where(["name like ?", "%#{params[:keyword]}%"])
+              else
+                Event.all
+              end
+    @events = @events.page(params[:page]).per(5)
   end
 
   def new

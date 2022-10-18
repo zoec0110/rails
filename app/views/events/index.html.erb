@@ -1,4 +1,8 @@
 <ul>
+<%= form_tag events_path, :method => :get do %>
+  	<%= text_field_tag "keyword" %>
+  	<%= submit_tag "Search" %>
+<% end %>
 <% @events.each do |event| %>
 	<li>
 	<%= event.name %>
