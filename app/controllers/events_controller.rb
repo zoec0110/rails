@@ -51,6 +51,15 @@ class EventsController < ApplicationController
     end
   end
 
+  def latest
+    @events = Event.order("id DESC").limit(3)
+  end
+
+  def bulk_delete
+    Event.destroy_all
+    redirect_to events_path
+  end
+
   private
 
     def event_params

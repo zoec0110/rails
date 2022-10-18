@@ -13,5 +13,6 @@
 <% end %>
 </ul>
 <%= paginate @events %>
+<%= button_to "Delete All", bulk_delete_events_path, :method => :post %>
 <%= link_to 'New Event', :controller => 'events', :action => 'new' %>
 <%= link_to "Atom feed", events_path(:format => :atom) %>

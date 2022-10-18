@@ -8,6 +8,12 @@ Rails.application.routes.draw do
     resources :attendees, controller: 'event_attendees'
     resource :location, controller: 'event_locations'
   end
+  resources :events do
+    collection do
+      get :latest
+      post :bulk_delete
+    end
+  end
   # match ':controller(/:action(/:id(.:format)))', via: :all
   # Defines the root path route ("/")
   # root "articles#index"
