@@ -11,5 +11,5 @@
 <% end %>
 </ul>
 <%= paginate @events %>
-<%= link_to 'New Event', new_event_path %>
+<%= link_to 'New Event', :controller => 'events', :action => 'new' %>
 <%= link_to "Atom feed", events_path(:format => :atom) %>
