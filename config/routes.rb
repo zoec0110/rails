@@ -14,6 +14,11 @@ Rails.application.routes.draw do
       post :bulk_delete
     end
   end
+  resources :events do
+    member do
+      get :dashboard
+    end
+  end
   # match ':controller(/:action(/:id(.:format)))', via: :all
   # Defines the root path route ("/")
   # root "articles#index"

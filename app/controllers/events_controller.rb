@@ -60,6 +60,10 @@ class EventsController < ApplicationController
     redirect_to events_path
   end
 
+  def dashboard
+    @event = Event.find(params[:id])
+  end
+
   private
 
     def event_params
