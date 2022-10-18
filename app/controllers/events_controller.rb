@@ -8,12 +8,8 @@ class EventsController < ApplicationController
     #   format.xml { render xml: @events.to_xml }
     #   format.json { render json: @events.to_json }
     #   format.atom { @feed_title = 'My event list' } # index.atom.builder
-    @events = if params[:keyword]
-                Event.where(["name like ?", "%#{params[:keyword]}%"])
-              else
-                Event.all
-              end
-    @events = @events.page(params[:page]).per(5)
+    sort_by = params[:order] == 'name' ? 'name' : 'created_at'
+    @events = Event.order(sort_by).page(params[:page]).per(5)
   end
 
   def new

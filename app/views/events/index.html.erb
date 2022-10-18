@@ -1,8 +1,6 @@
 <ul>
-<%= form_tag events_path, :method => :get do %>
-  	<%= text_field_tag "keyword" %>
-  	<%= submit_tag "Search" %>
-<% end %>
+<%= link_to 'Sort by Name', events_path( :order => "name") %>
+<%= link_to 'Sort by Default', events_path %>
 <% @events.each do |event| %>
 	<li>
 	<%= event.name %>
