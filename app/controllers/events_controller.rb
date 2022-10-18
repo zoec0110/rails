@@ -2,13 +2,14 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy]
   def index
     @events = Event.all
-    @events = Event.page(params[:page]).per(5)
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml { render xml: @events.to_xml }
-      format.json { render json: @events.to_json }
-      format.atom { @feed_title = 'My event list' } # index.atom.builder
-    end
+    # @events = Event.page(params[:page]).per(5)
+    # respond_to do |format|
+    #   format.html # index.html.erb
+    #   format.xml { render xml: @events.to_xml }
+    #   format.json { render json: @events.to_json }
+    #   format.atom { @feed_title = 'My event list' } # index.atom.builder
+    sort_by = params[:order] == 'name' ? 'name' : 'created_at'
+    @events = Event.order(sort_by).page(params[:page]).per(5)
   end
 
   def new
@@ -51,10 +52,24 @@ class EventsController < ApplicationController
     end
   end
 
+  def latest
+    @events = Event.order("id DESC").limit(3)
+  end
+
+  def bulk_delete
+    Event.destroy_all
+    redirect_to events_path
+  end
+
+  def dashboard
+    @event = Event.find(params[:id])
+  end
+
   private
 
     def event_params
-      params.require(:event).permit(:name, :description)
+      params.require(:event).permit(:name, :description, :category_id,
+        location_attributes: [:id, :name, :_destroy], group_ids: [])
     end
 
     def set_event

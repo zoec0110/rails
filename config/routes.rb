@@ -4,7 +4,21 @@ Rails.application.routes.draw do
   get 'welcome/say_hello' => 'welcome#say'
   get 'welcome' => 'welcome#index'
   root to: 'welcome#index'
-  resources :events
+  resources :events do
+    resources :attendees, controller: 'event_attendees'
+    resource :location, controller: 'event_locations'
+  end
+  resources :events do
+    collection do
+      get :latest
+      post :bulk_delete
+    end
+  end
+  resources :events do
+    member do
+      get :dashboard
+    end
+  end
   # match ':controller(/:action(/:id(.:format)))', via: :all
   # Defines the root path route ("/")
   # root "articles#index"
